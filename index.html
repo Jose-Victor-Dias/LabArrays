@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratório de JavaScript - Arrays e Datas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000000;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    select, button, textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      background: #ff9d00;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 15px;
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Laboratório de Arrays e datas</h1>
+    <p>Selecione a função que deseja executar:</p>
+    <select id="functionSelect">
+      <option value="1500to1599">1. Inventores nascidos entre 1500 e 1599</option>
+      <option value="firstAndLast">2. Primeiros e últimos nomes</option>
+      <option value="sortByBirth">3. Ordenar por data de nascimento</option>
+      <option value="totalYears">4. Total de anos vividos</option>
+      <option value="sortByYearsLived">5. Ordenar pelo número de anos vividos</option>
+      <option value="filterNamesWithDe">6. Pessoas com 'de' no nome</option>
+    </select>
+    <button onclick="executeFunction()">Executar</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+
+    const people = [
+      'Bernhard, Sandra', 'Bethea, Erin', 'Becker, Carl', 'Bentsen, Lloyd',
+      'Beckett, Samuel', 'Blake, William', 'Berger, Ric', 'Beddoes, Mick',
+      'Beethoven, Ludwig', 'Belloc, Hilaire', 'Begin, Menachem', 'Bellow, Saul',
+      'Benchley, Robert', 'Benenson, Peter', 'Benjamin, Walter', 'Berlin, Irving',
+      'Bernhard, Sandra', 'Berlioz, Hector', 'Berry, Halle', 'Berry, Wendell',
+      'Biden, Joseph', 'Berle, Milton', 'Berio, Luciano', 'Berne, Eric',
+      'Berra, Yogi', 'Bertrand, Russell', 'Berle, Milton', 'Berio, Luciano',
+      'Berne, Eric', 'Berra, Yogi', 'Bierce, Ambrose', 'Billings, Josh',
+      'Bison, Mike', 'Bierce, Ambrose', 'Beethoven, Ludwig', 'Biondo, Frank'
+    ];
+
+    function inventors1500to1599() {
+      return inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+    }
+
+    function firstAndLastNames() {
+      return inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+    }
+
+    function sortByBirthDate() {
+      return inventors.sort((a, b) => a.year - b.year);
+    }
+
+    function totalYearsLived() {
+      return inventors.reduce((total, inventor) => total + (inventor.passed - inventor.year), 0);
+    }
+
+    function sortByYearsLived() {
+      return inventors.sort((a, b) => (b.passed - b.year) - (a.passed - a.year));
+    }
+
+    function filterNamesWithDe() {
+      return people.filter(person => person.toLowerCase().includes('de'));
+    }
+
+    function executeFunction() {
+      const selectedFunction = document.getElementById("functionSelect").value;
+      let result;
+
+      switch (selectedFunction) {
+        case "1500to1599":
+          result = inventors1500to1599();
+          break;
+        case "firstAndLast":
+          result = firstAndLastNames();
+          break;
+        case "sortByBirth":
+          result = sortByBirthDate();
+          break;
+        case "totalYears":
+          result = totalYearsLived();
+          break;
+        case "sortByYearsLived":
+          result = sortByYearsLived();
+          break;
+        case "filterNamesWithDe":
+          result = filterNamesWithDe();
+          break;
+      }
+
+      document.getElementById("result").innerText = JSON.stringify(result, null, 2);
+    }
+  </script>
+</body>
+</html>
